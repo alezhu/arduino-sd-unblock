@@ -1,0 +1,61 @@
+name: Build & Release Firmware
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    name: Build Firmware & Create GitHub Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install PlatformIO
+        run: |
+          python -m pip install --upgrade pip
+          pip install platformio
+
+      - name: Build firmware binaries for all platforms
+        run: |
+          chmod +x build.sh
+          ./build.sh
+
+      - name: Extract Release Notes from CHANGELOG.md
+        id: changelog
+        run: |
+          python3 -c "
+          import re, sys
+
+          tag = '${{ github.ref_name }}'.lstrip('v')
+          with open('CHANGELOG.md', 'r', encoding='utf-8') as f:
+              content = f.read()
+
+          pattern = r'##\s*\[?' + re.escape(tag) + r'\]?.*?\n(.*?)(?=\n##\s*\[?|\Z)'
+          match = re.search(pattern, content, re.DOTALL)
+          if match:
+              notes = match.group(1).strip()
+          else:
+              notes = 'Release ' + '${{ github.ref_name }}'
+
+          with open('release_notes.md', 'w', encoding='utf-8') as out:
+              out.write(notes)
+          "
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          body_path: release_notes.md
+          files: build_out/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
