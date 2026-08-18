@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 520" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #1e1e2e; }
+      .title { font-family: system-ui, sans-serif; font-size: 19px; font-weight: bold; fill: #cdd6f4; }
+      .subtitle { font-family: system-ui, sans-serif; font-size: 13px; fill: #bac2de; }
+      .box-board { fill: #181825; stroke: #89b4fa; stroke-width: 2; rx: 8; }
+      .box-ic { fill: #181825; stroke: #cba6f7; stroke-width: 2; rx: 8; }
+      .box-sd { fill: #181825; stroke: #a6e3a1; stroke-width: 2; rx: 8; }
+      .pin-name { font-family: monospace; font-size: 13px; font-weight: bold; fill: #cdd6f4; }
+      .mono { font-family: monospace; font-size: 12px; font-weight: bold; fill: #cba6f7; }
+      .wire { fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+      .wire-vcc { stroke: #f38ba8; }
+      .wire-gnd { stroke: #6c7086; }
+      .wire-cs  { stroke: #fab387; }
+      .wire-mosi{ stroke: #f9e2af; }
+      .wire-miso{ stroke: #a6e3a1; }
+      .wire-sck { stroke: #89b4fa; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+  <text x="425" y="30" text-anchor="middle" class="title">Arduino Uno ➔ SD Module via 74HC125N / 74LVC125A Buffer IC</text>
+  <text x="425" y="52" text-anchor="middle" class="subtitle">74HC125 IC powered from 3.3V. OE outputs tied to GND</text>
+
+  <!-- Arduino Block -->
+  <rect x="40" y="80" width="195" height="410" class="box-board" />
+  <text x="137" y="115" text-anchor="middle" class="title" fill="#89b4fa">Arduino Uno</text>
+
+  <!-- 74HC125 IC Block -->
+  <rect x="310" y="125" width="230" height="295" class="box-ic" />
+  <text x="425" y="150" text-anchor="middle" class="title" fill="#cba6f7">74HC125N</text>
+  <text x="425" y="170" text-anchor="middle" class="subtitle">(VCC = 3.3V)</text>
+
+  <!-- SD Module Block -->
+  <rect x="615" y="80" width="195" height="410" class="box-sd" />
+  <text x="712" y="115" text-anchor="middle" class="title" fill="#a6e3a1">SD / MicroSD Slot</text>
+
+  <!-- Arduino Pins (Left) -->
+  <text x="225" y="155" text-anchor="end" class="pin-name">3.3V</text>
+  <text x="225" y="205" text-anchor="end" class="pin-name">GND</text>
+  <text x="225" y="265" text-anchor="end" class="pin-name">D10 (CS)</text>
+  <text x="225" y="325" text-anchor="end" class="pin-name">D11 (MOSI)</text>
+  <text x="225" y="385" text-anchor="end" class="pin-name">D13 (SCK)</text>
+  <text x="225" y="455" text-anchor="end" class="pin-name">D12 (MISO)</text>
+
+  <!-- IC Pins Inside Left -->
+  <text x="320" y="205" text-anchor="start" class="mono">VCC (Pin 14)</text>
+  <text x="320" y="230" text-anchor="start" class="mono">GND (Pin 7), OE</text>
+  <text x="320" y="265" text-anchor="start" class="mono">1A (Pin 2)</text>
+  <text x="320" y="325" text-anchor="start" class="mono">2A (Pin 5)</text>
+  <text x="320" y="385" text-anchor="start" class="mono">3A (Pin 9)</text>
+
+  <!-- IC Pins Inside Right -->
+  <text x="530" y="265" text-anchor="end" class="mono">1Y (Pin 3)</text>
+  <text x="530" y="325" text-anchor="end" class="mono">2Y (Pin 6)</text>
+  <text x="530" y="385" text-anchor="end" class="mono">3Y (Pin 8)</text>
+
+  <!-- SD Pins (Right) -->
+  <text x="625" y="155" text-anchor="start" class="pin-name">VCC (3.3V)</text>
+  <text x="625" y="205" text-anchor="start" class="pin-name">GND</text>
+  <text x="625" y="265" text-anchor="start" class="pin-name">CS</text>
+  <text x="625" y="325" text-anchor="start" class="pin-name">MOSI</text>
+  <text x="625" y="385" text-anchor="start" class="pin-name">SCK</text>
+  <text x="625" y="455" text-anchor="start" class="pin-name">MISO</text>
+
+  <!-- WIRING -->
+  <path d="M 235 150 L 310 150" class="wire wire-vcc" />
+  <circle cx="265" cy="150" r="5" fill="#f38ba8" />
+  <path d="M 265 150 L 265 90 L 595 90 L 595 150 L 615 150" class="wire wire-vcc" />
+  <circle cx="615" cy="150" r="4" fill="#f38ba8" />
+
+  <path d="M 235 200 L 310 200" class="wire wire-gnd" />
+  <circle cx="285" cy="200" r="5" fill="#6c7086" />
+  <path d="M 285 200 L 285 112 L 575 112 L 575 200 L 615 200" class="wire wire-gnd" />
+  <circle cx="615" cy="200" r="4" fill="#6c7086" />
+
+  <path d="M 235 260 L 310 260" class="wire wire-cs" />
+  <path d="M 540 260 L 615 260" class="wire wire-cs" />
+  <circle cx="235" cy="260" r="4" fill="#fab387" />
+  <circle cx="615" cy="260" r="4" fill="#fab387" />
+
+  <path d="M 235 320 L 310 320" class="wire wire-mosi" />
+  <path d="M 540 320 L 615 320" class="wire wire-mosi" />
+  <circle cx="235" cy="320" r="4" fill="#f9e2af" />
+  <circle cx="615" cy="320" r="4" fill="#f9e2af" />
+
+  <path d="M 235 380 L 310 380" class="wire wire-sck" />
+  <path d="M 540 380 L 615 380" class="wire wire-sck" />
+  <circle cx="235" cy="380" r="4" fill="#89b4fa" />
+  <circle cx="615" cy="380" r="4" fill="#89b4fa" />
+
+  <path d="M 615 450 L 235 450" class="wire wire-miso" />
+  <circle cx="235" cy="450" r="4" fill="#a6e3a1" />
+  <circle cx="615" cy="450" r="4" fill="#a6e3a1" />
+  <text x="425" y="440" text-anchor="middle" class="subtitle" fill="#a6e3a1">Direct Connection MISO Bypassing IC (3.3V ➔ 5V MCU OK)</text>
+</svg>
