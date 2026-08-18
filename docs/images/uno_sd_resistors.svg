@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 650" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #1e1e2e; }
+      .title { font-family: system-ui, sans-serif; font-size: 19px; font-weight: bold; fill: #cdd6f4; }
+      .subtitle { font-family: system-ui, sans-serif; font-size: 13px; fill: #bac2de; }
+      .box-board { fill: #181825; stroke: #89b4fa; stroke-width: 2; rx: 8; }
+      .box-sd { fill: #181825; stroke: #f9e2af; stroke-width: 2; rx: 8; }
+      .pin-name { font-family: monospace; font-size: 13px; font-weight: bold; fill: #cdd6f4; }
+      .mono { font-family: monospace; font-size: 12px; font-weight: bold; fill: #f9e2af; }
+      .wire { fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+      .wire-vcc { stroke: #f38ba8; }
+      .wire-gnd { stroke: #6c7086; }
+      .wire-cs  { stroke: #fab387; }
+      .wire-mosi{ stroke: #f9e2af; }
+      .wire-miso{ stroke: #a6e3a1; }
+      .wire-sck { stroke: #89b4fa; }
+      .resistor { fill: #313244; stroke: #f9e2af; stroke-width: 2; rx: 4; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+  <text x="425" y="30" text-anchor="middle" class="title">Arduino Uno ➔ SD Module WITHOUT Converter (Resistor Dividers 5V ➔ 3.3V)</text>
+  <text x="425" y="52" text-anchor="middle" class="subtitle">1 kΩ / 2 kΩ Dividers for CS, MOSI, SCK. VCC Power strictly 3.3V!</text>
+
+  <!-- Arduino Block -->
+  <rect x="40" y="80" width="200" height="540" class="box-board" />
+  <text x="140" y="110" text-anchor="middle" class="title" fill="#89b4fa">Arduino Uno / Nano</text>
+
+  <!-- SD Module Block -->
+  <rect x="610" y="80" width="200" height="540" class="box-sd" />
+  <text x="710" y="110" text-anchor="middle" class="title" fill="#f9e2af">SD / MicroSD Slot</text>
+  <text x="710" y="130" text-anchor="middle" class="subtitle">(3.3V Power Only!)</text>
+
+  <!-- Arduino Pins -->
+  <text x="225" y="145" text-anchor="end" class="pin-name">3.3V</text>
+  <text x="225" y="195" text-anchor="end" class="pin-name">GND</text>
+  <text x="225" y="265" text-anchor="end" class="pin-name">D10 (CS)</text>
+  <text x="225" y="375" text-anchor="end" class="pin-name">D11 (MOSI)</text>
+  <text x="225" y="475" text-anchor="end" class="pin-name">D12 (MISO)</text>
+  <text x="225" y="545" text-anchor="end" class="pin-name">D13 (SCK)</text>
+
+  <!-- SD Pins -->
+  <text x="625" y="145" text-anchor="start" class="pin-name">VCC (3.3V)</text>
+  <text x="625" y="195" text-anchor="start" class="pin-name">GND</text>
+  <text x="625" y="265" text-anchor="start" class="pin-name">CS</text>
+  <text x="625" y="375" text-anchor="start" class="pin-name">MOSI</text>
+  <text x="625" y="475" text-anchor="start" class="pin-name">MISO</text>
+  <text x="625" y="545" text-anchor="start" class="pin-name">SCK</text>
+
+  <!-- 1. VCC Direct Line -->
+  <path d="M 235 140 L 610 140" class="wire wire-vcc" />
+
+  <!-- 2. GND Direct Line -->
+  <path d="M 235 190 L 610 190" class="wire wire-gnd" />
+
+  <!-- 3. CS Divider (D10 -> Y=260) -->
+  <path d="M 235 260 L 290 260" class="wire wire-cs" />
+  <rect x="290" y="248" width="60" height="24" class="resistor" />
+  <text x="320" y="264" text-anchor="middle" class="mono">1 kΩ</text>
+  <path d="M 350 260 L 610 260" class="wire wire-cs" />
+  <circle cx="410" cy="260" r="5" fill="#fab387" />
+  <path d="M 410 260 L 410 278" class="wire wire-gnd" />
+  <rect x="398" y="278" width="24" height="40" class="resistor" />
+  <text x="432" y="303" class="mono">2 kΩ</text>
+  <path d="M 410 318 L 410 330" class="wire wire-gnd" />
+  <path d="M 395 330 L 425 330" class="wire wire-gnd" />
+  <path d="M 400 335 L 420 335" class="wire wire-gnd" />
+
+  <!-- 4. MOSI Divider (D11 -> Y=370) -->
+  <path d="M 235 370 L 290 370" class="wire wire-mosi" />
+  <rect x="290" y="358" width="60" height="24" class="resistor" />
+  <text x="320" y="374" text-anchor="middle" class="mono">1 kΩ</text>
+  <path d="M 350 370 L 610 370" class="wire wire-mosi" />
+  <circle cx="490" cy="370" r="5" fill="#f9e2af" />
+  <path d="M 490 370 L 490 388" class="wire wire-gnd" />
+  <rect x="478" y="388" width="24" height="40" class="resistor" />
+  <text x="512" y="413" class="mono">2 kΩ</text>
+  <path d="M 490 428 L 490 440" class="wire wire-gnd" />
+  <path d="M 475 440 L 505 440" class="wire wire-gnd" />
+  <path d="M 480 445 L 500 445" class="wire wire-gnd" />
+
+  <!-- 5. MISO Direct Line (D12 -> Y=470) -->
+  <text x="425" y="462" text-anchor="middle" class="subtitle" fill="#a6e3a1">Direct Connection MISO (3.3V ➔ 5V MCU OK)</text>
+  <path d="M 235 470 L 610 470" class="wire wire-miso" />
+
+  <!-- 6. SCK Divider (D13 -> Y=540) -->
+  <path d="M 235 540 L 290 540" class="wire wire-sck" />
+  <rect x="290" y="528" width="60" height="24" class="resistor" />
+  <text x="320" y="544" text-anchor="middle" class="mono">1 kΩ</text>
+  <path d="M 350 540 L 610 540" class="wire wire-sck" />
+  <circle cx="410" cy="540" r="5" fill="#89b4fa" />
+  <path d="M 410 540 L 410 558" class="wire wire-gnd" />
+  <rect x="398" y="558" width="24" height="40" class="resistor" />
+  <text x="432" y="583" class="mono">2 kΩ</text>
+  <path d="M 410 598 L 410 608" class="wire wire-gnd" />
+  <path d="M 395 608 L 425 608" class="wire wire-gnd" />
+  <path d="M 400 613 L 420 613" class="wire wire-gnd" />
+</svg>

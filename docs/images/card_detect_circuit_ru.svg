@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #1e1e2e; }
+      .title { font-family: system-ui, sans-serif; font-size: 18px; font-weight: bold; fill: #cdd6f4; }
+      .subtitle { font-family: system-ui, sans-serif; font-size: 13px; fill: #bac2de; }
+      .mono { font-family: monospace; font-size: 12px; font-weight: bold; fill: #f9e2af; }
+      .box-card { fill: #181825; stroke: #a6e3a1; stroke-width: 2; rx: 8; }
+      .box-mcu { fill: #181825; stroke: #89b4fa; stroke-width: 2; rx: 8; }
+      .wire-vcc { fill: none; stroke: #f38ba8; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+      .wire-gnd { fill: none; stroke: #6c7086; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+      .wire-sig { fill: none; stroke: #cba6f7; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+      .resistor { fill: #313244; stroke: #f9e2af; stroke-width: 2; rx: 4; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+  <text x="380" y="30" text-anchor="middle" class="title">Схема детекта присутствия карты (Пин 8 / DAT1)</text>
+  <text x="380" y="52" text-anchor="middle" class="subtitle">Делитель подтяжки R_PU карты и внешнего R_PD с алгоритмом автокалибровки</text>
+
+  <!-- SD Card Block (Left) -->
+  <rect x="40" y="80" width="220" height="240" class="box-card" />
+  <text x="150" y="110" text-anchor="middle" class="title" fill="#a6e3a1">SD / MicroSD Карта</text>
+
+  <!-- Internal VCC inside SD -->
+  <path d="M 100 125 L 100 145" class="wire-vcc" />
+  <text x="100" y="120" text-anchor="middle" class="mono">VCC (3.3V)</text>
+
+  <!-- Internal Pull-Up Resistor R_PU inside SD Card -->
+  <rect x="86" y="145" width="28" height="45" class="resistor" />
+  <text x="125" y="165" class="mono">R_PU</text>
+  <text x="125" y="180" class="subtitle">(Номинал неизвестен)</text>
+
+  <!-- Connection to Pin 8 -->
+  <path d="M 100 190 L 100 210 L 260 210" class="wire-sig" />
+  <text x="245" y="200" text-anchor="end" class="mono">Пин 8 (DAT1)</text>
+
+  <!-- Sensing Wire from Pin 8 to MCU -->
+  <path d="M 260 210 L 520 210" class="wire-sig" />
+  <circle cx="390" cy="210" r="5" fill="#cba6f7" />
+
+  <!-- External Pull-Down Resistor R_PD to GND -->
+  <path d="M 390 210 L 390 230" class="wire-sig" />
+  <rect x="376" y="230" width="28" height="45" class="resistor" />
+  <text x="415" y="250" class="mono">R_PD</text>
+  <text x="415" y="265" class="subtitle">(Внешняя подтяжка)</text>
+
+  <!-- GND Connection -->
+  <path d="M 390 275 L 390 295" class="wire-gnd" />
+  <path d="M 375 295 L 405 295" class="wire-gnd" />
+  <path d="M 380 300 L 400 300" class="wire-gnd" />
+  <path d="M 385 305 L 395 305" class="wire-gnd" />
+  <text x="415" y="302" class="mono">GND</text>
+
+  <!-- MCU Block (Right) -->
+  <rect x="520" y="80" width="200" height="240" class="box-mcu" />
+  <text x="620" y="110" text-anchor="middle" class="title" fill="#89b4fa">Микроконтроллер</text>
+  <text x="620" y="180" text-anchor="middle" class="mono">АЦП Вход</text>
+  <text x="620" y="200" text-anchor="middle" class="subtitle">(A0 / PA0 / GPIO34)</text>
+  <text x="620" y="240" text-anchor="middle" class="subtitle">Автокалибровка</text>
+  <text x="620" y="260" text-anchor="middle" class="subtitle">скачка Δ ≥ 50%</text>
+</svg>
