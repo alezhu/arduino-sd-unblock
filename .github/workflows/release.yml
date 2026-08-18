@@ -33,23 +33,18 @@ jobs:
       - name: Extract Release Notes from CHANGELOG.md
         id: changelog
         run: |
-          python3 -c "
-          import re, sys
+          TAG="${{ github.ref_name }}"
+          TAG="${TAG#v}"
+          awk -v tag="$TAG" '
+            BEGIN { found=0 }
+            $0 ~ "^## \\[" tag "\\]" || $0 ~ "^## " tag { found=1; next }
+            found && /^## / { exit }
+            found { print }
+          ' CHANGELOG.md > release_notes.md
 
-          tag = '${{ github.ref_name }}'.lstrip('v')
-          with open('CHANGELOG.md', 'r', encoding='utf-8') as f:
-              content = f.read()
-
-          pattern = r'##\s*\[?' + re.escape(tag) + r'\]?.*?\n(.*?)(?=\n##\s*\[?|\Z)'
-          match = re.search(pattern, content, re.DOTALL)
-          if match:
-              notes = match.group(1).strip()
-          else:
-              notes = 'Release ' + '${{ github.ref_name }}'
-
-          with open('release_notes.md', 'w', encoding='utf-8') as out:
-              out.write(notes)
-          "
+          if [ ! -s release_notes.md ]; then
+            echo "Release ${{ github.ref_name }}" > release_notes.md
+          fi
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3
