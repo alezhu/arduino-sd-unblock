@@ -1,0 +1,5 @@
+.pio
+.vscode/
+.idea/
+build_out/
+*.webp
